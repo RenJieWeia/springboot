@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.renjie.crm.mapper.AccountMapper">
+    <resultMap id="default" type="com.renjie.crm.entity.Account">
+        <id column="accountId" property="accountId" javaType="String"/>
+        <result column="password" property="password" javaType="String"/>
+        <result column="master" property="master" javaType="String"/>
+    </resultMap>
+    <select id="getAccountByPrimary" parameterType="String" resultMap="default">
+        select
+        accountId,password,master
+        from account
+        <where>
+            <trim suffixOverrides="," prefixOverrides="and">
+                <if test="accountId!=null">
+                    and accountid=#{accountId}
+                </if>
+            </trim>
+        </where>
+    </select>
+</mapper>
